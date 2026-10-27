@@ -90,7 +90,7 @@ h1, h2, h3 { text-wrap: balance; }
 .hero-copy { flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 20px; }
 .eyebrow { display: flex; align-items: center; gap: 12px; font-weight: 800; font-size: 16px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--plumeria); }
 .hero h1 { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(56px, 9vw, 92px); line-height: 1.1; }
-.hero h1 span { color: #FF7AA2; }
+.hero h1 span { color: #44DDF1; }
 .hero p { margin: 0; font-size: 21px; line-height: 1.6; max-width: 32em; color: var(--mist); }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
 .btn { display: inline-block; font-weight: 800; font-size: 18px; text-decoration: none; padding: 15px 26px; border-radius: 999px; }
