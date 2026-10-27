@@ -114,6 +114,7 @@ h1, h2, h3 { text-wrap: balance; }
 .photo-spot small { font-weight: 600; color: var(--muted); font-size: 14px; }
 .sky .photo-spot { background: #2C3478; border: 8px solid var(--hibiscus); color: var(--white); border-radius: 160px / 120px; min-height: 380px; }
 .sky .photo-spot small { color: var(--mist); }
+.hero-photo .photo-spot { border-color: #44DDF1; }
 .photo-spot.video { aspect-ratio: 16 / 9; min-height: 0; max-width: 100%; }
 
 /* ---------- Sand sections ---------- */
