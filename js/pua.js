@@ -87,16 +87,16 @@
     });
     return out + '</g>';
   }
-  // Long hair with rounded bangs and aqua highlights
+  // Long hair with rounded bangs and aqua highlights. The front layer frames the face down past the shoulders.
   var HAIR_BACK =
     '<g class="hair-back">' +
-    '<path d="M50 15 C 22 15 7 33 7 58 C 7 70 5 80 9 89 Q 14 85 18 89 Q 23 83 21 74 L 79 74 Q 77 83 82 89 Q 86 85 91 89 C 95 80 93 70 93 58 C 93 33 78 15 50 15 Z" fill="#4A2F96" stroke="#1B1F4B" stroke-width="1"></path>' +
-    '<path d="M11 56 Q 9 70 12 84 M89 56 Q 91 70 88 84 M15 62 Q 14 72 17 82 M85 62 Q 86 72 83 82" stroke="#44DDF1" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.9"></path>' +
+    '<path d="M50 15 C 22 15 5 33 5 58 C 5 70 3 81 8 91 Q 13 87 18 91 Q 23 83 21 74 L 79 74 Q 77 83 82 91 Q 87 87 92 91 C 97 81 95 70 95 58 C 95 33 78 15 50 15 Z" fill="#4A2F96" stroke="#1B1F4B" stroke-width="1"></path>' +
     '</g>';
   var HAIR_FRONT =
     '<g class="hair-front">' +
-    '<path d="M14 50 C 12 28 28 13 50 13 C 72 13 88 28 86 50 C 84 44 81 36 77.5 31 A7 5 0 0 1 64 33.5 A7 5 0 0 1 50 34 A7 5 0 0 1 36 33.5 A7 5 0 0 1 22.5 31 C 19 36 16 44 14 50 Z" fill="#5E3FB5" stroke="#1B1F4B" stroke-width="1"></path>' +
-    '<path d="M28 21 Q 36 15.5 46 15 M36 18 Q 39 25 37 33 M52 16 Q 55 25 53 34 M66 18 Q 69 25 67 32 M18 36 Q 16 42 15.5 47 M82 36 Q 84 42 84.5 47" stroke="#44DDF1" stroke-width="2" fill="none" stroke-linecap="round"></path>' +
+    '<path d="M11 88 C 6 76 6 66 7 56 C 8 32 24 13 50 13 C 76 13 92 32 93 56 C 94 66 94 76 89 88 Q 87 84 84 87 C 82 74 80 62 81 52 C 82 42 80 36 77.5 31 A7 5 0 0 1 64 33.5 A7 5 0 0 1 50 34 A7 5 0 0 1 36 33.5 A7 5 0 0 1 22.5 31 C 20 36 18 42 19 52 C 20 62 18 74 16 87 Q 13 84 11 88 Z" fill="#5E3FB5" stroke="#1B1F4B" stroke-width="1"></path>' +
+    '<path d="M14 36 Q 10 56 13 82 M86 36 Q 90 56 87 82" stroke="#4A2F96" stroke-width="1.6" fill="none" stroke-linecap="round"></path>' +
+    '<path d="M28 21 Q 36 15.5 46 15 M36 18 Q 39 25 37 33 M52 16 Q 55 25 53 34 M66 18 Q 69 25 67 32 M18 34 Q 15 46 15.5 58 M10 58 Q 9 70 12 84 M17 64 Q 16 74 17.5 82 M82 34 Q 85 46 84.5 58 M90 58 Q 91 70 88 84 M83 64 Q 84 74 82.5 82" stroke="#44DDF1" stroke-width="2" fill="none" stroke-linecap="round"></path>' +
     '</g>';
   var PUA_SVG =
     '<svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true" focusable="false">' +
@@ -105,14 +105,14 @@
     HAIR_BACK +
     '<ellipse cx="37" cy="88" rx="10" ry="6.5" fill="#2F6BD0"></ellipse><ellipse cx="63" cy="88" rx="10" ry="6.5" fill="#2F6BD0"></ellipse>' +
     '<path d="M31 33 C 28 24 27 16 29 10 C 34 16 39 23 42 30 Z" fill="#FFE7A3"></path><path d="M69 33 C 72 24 73 16 71 10 C 66 16 61 23 58 30 Z" fill="#FFE7A3"></path>' +
-    '<ellipse cx="15" cy="64" rx="8" ry="10" fill="#3F7EDD" transform="rotate(-20 15 64)"></ellipse><ellipse cx="85" cy="64" rx="8" ry="10" fill="#3F7EDD" transform="rotate(20 85 64)"></ellipse>' +
     '<circle cx="30" cy="34" r="7" fill="#4F8FEA"></circle><circle cx="41" cy="29" r="7" fill="#4F8FEA"></circle><circle cx="50" cy="27" r="7" fill="#4F8FEA"></circle><circle cx="59" cy="29" r="7" fill="#4F8FEA"></circle><circle cx="70" cy="34" r="7" fill="#4F8FEA"></circle>' +
     '<ellipse cx="50" cy="60" rx="37" ry="32" fill="#4F8FEA"></ellipse>' +
     '<ellipse cx="50" cy="73" rx="20" ry="14" fill="#B9D7FF"></ellipse>' +
     '<ellipse cx="50" cy="73" rx="16.5" ry="10.5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-dasharray="3 2.5"></ellipse>' +
     '<ellipse cx="29" cy="62" rx="5.5" ry="3.2" fill="#FF8FB0" opacity="0.8"></ellipse><ellipse cx="71" cy="62" rx="5.5" ry="3.2" fill="#FF8FB0" opacity="0.8"></ellipse>' +
-    NAILS(15, 64, -20, [118, 142, 166]) + NAILS(85, 64, 20, [62, 38, 14]) +
     HAIR_FRONT +
+    '<ellipse cx="15" cy="64" rx="8" ry="10" fill="#3F7EDD" transform="rotate(-20 15 64)"></ellipse><ellipse cx="85" cy="64" rx="8" ry="10" fill="#3F7EDD" transform="rotate(20 85 64)"></ellipse>' +
+    NAILS(15, 64, -20, [118, 142, 166]) + NAILS(85, 64, 20, [62, 38, 14]) +
     '<g class="face face-idle">' +
       '<g class="eyes-open"><circle cx="39" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="61" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="41" cy="51" r="2" fill="#FFFFFF"></circle><circle cx="63" cy="51" r="2" fill="#FFFFFF"></circle>' + LASHES(39, 53, 6, -1) + LASHES(61, 53, 6, 1) + '</g>' +
       '<g class="eyes-happy"><path d="M33 55 Q39 47 45 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M55 55 Q61 47 67 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path>' + CLOSED_LASHES(33, 55, -1) + CLOSED_LASHES(67, 55, 1) + '</g>' +
