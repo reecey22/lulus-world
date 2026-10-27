@@ -60,6 +60,33 @@
     return s + '<circle r="' + (r * 0.43) + '" fill="' + center + '"></circle></g>';
   };
   var HEART = 'M0 4 C -6 -1 -6 -7 -2 -7 C 0 -7 0 -5 0 -4 C 0 -5 0 -7 2 -7 C 6 -7 6 -1 0 4 Z';
+  // Dramatic lashes: curled strokes off the outer top of an open eye (side -1 = left eye, 1 = right eye)
+  function LASHES(cx, cy, r, side) {
+    var f = function (n) { return n.toFixed(1); };
+    var angs = [100, 122, 145, 168], lens = [5.5, 7.5, 8.5, 8], d = '';
+    angs.forEach(function (a, i) {
+      var t = a * Math.PI / 180, dx = Math.cos(t) * (side > 0 ? -1 : 1), dy = -Math.sin(t);
+      var bx = cx + dx * r, by = cy + dy * r, L = lens[i];
+      d += 'M' + f(bx) + ' ' + f(by) + ' Q' + f(bx + dx * L * 0.6) + ' ' + f(by + dy * L * 0.6) + ' ' + f(bx + dx * L) + ' ' + f(by + dy * L - 3) + ' ';
+    });
+    return '<path class="lash" d="' + d + '" stroke="#1B1F4B" stroke-width="2.2" fill="none" stroke-linecap="round"></path>';
+  }
+  // Lashes for a closed, smiling eye: flicks off the outer corner at (x, y)
+  function CLOSED_LASHES(x, y, side) {
+    var s = side > 0 ? 1 : -1;
+    return '<path class="lash" d="M' + x + ' ' + y + ' q' + (3 * s) + ' -1 ' + (5.5 * s) + ' -5 M' + x + ' ' + y + ' q' + (3.5 * s) + ' 0.5 ' + (7 * s) + ' -2 M' + (x - 2 * s) + ' ' + (y - 4) + ' q' + (1 * s) + ' -3 ' + (3 * s) + ' -6.5" stroke="#1B1F4B" stroke-width="2" fill="none" stroke-linecap="round"></path>';
+  }
+  // French tip nails: three nude nails with white smile-line tips around the outer edge of a paw
+  function NAILS(hx, hy, rot, angs) {
+    var out = '<g class="nails" transform="rotate(' + rot + ' ' + hx + ' ' + hy + ')">';
+    angs.forEach(function (a) {
+      var t = a * Math.PI / 180, px = hx + 8 * 0.92 * Math.cos(t), py = hy + 10 * 0.92 * Math.sin(t);
+      out += '<g transform="translate(' + px.toFixed(1) + ' ' + py.toFixed(1) + ') rotate(' + (a - 90) + ')">' +
+        '<ellipse cx="0" cy="0" rx="2.1" ry="2.9" fill="#F8D7DA" stroke="#1B1F4B" stroke-width="0.5"></ellipse>' +
+        '<path d="M-2.05 0.6 A2.1 2.9 0 0 0 2.05 0.6 Q0 1.9 -2.05 0.6 Z" fill="#FFFFFF"></path></g>';
+    });
+    return out + '</g>';
+  }
   var PUA_SVG =
     '<svg width="100" height="100" viewBox="0 0 100 100" aria-hidden="true" focusable="false">' +
     '<ellipse cx="50" cy="95" rx="28" ry="5" fill="rgba(14,18,51,0.35)"></ellipse>' +
@@ -72,24 +99,25 @@
     '<ellipse cx="50" cy="73" rx="20" ry="14" fill="#B9D7FF"></ellipse>' +
     '<ellipse cx="50" cy="73" rx="16.5" ry="10.5" fill="none" stroke="#FFFFFF" stroke-width="1.6" stroke-dasharray="3 2.5"></ellipse>' +
     '<ellipse cx="29" cy="62" rx="5.5" ry="3.2" fill="#FF8FB0" opacity="0.8"></ellipse><ellipse cx="71" cy="62" rx="5.5" ry="3.2" fill="#FF8FB0" opacity="0.8"></ellipse>' +
+    NAILS(15, 64, -20, [118, 142, 166]) + NAILS(85, 64, 20, [62, 38, 14]) +
     '<g class="face face-idle">' +
-      '<g class="eyes-open"><circle cx="39" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="61" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="41" cy="51" r="2" fill="#FFFFFF"></circle><circle cx="63" cy="51" r="2" fill="#FFFFFF"></circle></g>' +
-      '<g class="eyes-happy"><path d="M33 55 Q39 47 45 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M55 55 Q61 47 67 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path></g>' +
+      '<g class="eyes-open"><circle cx="39" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="61" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="41" cy="51" r="2" fill="#FFFFFF"></circle><circle cx="63" cy="51" r="2" fill="#FFFFFF"></circle>' + LASHES(39, 53, 6, -1) + LASHES(61, 53, 6, 1) + '</g>' +
+      '<g class="eyes-happy"><path d="M33 55 Q39 47 45 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path><path d="M55 55 Q61 47 67 55" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path>' + CLOSED_LASHES(33, 55, -1) + CLOSED_LASHES(67, 55, 1) + '</g>' +
       '<path d="M42 61 Q50 70 58 61 Z" fill="#1B1F4B"></path><path d="M46 61 L48 65 L50 61 Z" fill="#FFFFFF"></path>' +
     '</g>' +
     '<g class="face face-laugh">' +
-      '<path d="M32 54 Q39 46 46 54" stroke="#1B1F4B" stroke-width="3.2" fill="none" stroke-linecap="round"></path><path d="M54 54 Q61 46 68 54" stroke="#1B1F4B" stroke-width="3.2" fill="none" stroke-linecap="round"></path>' +
+      '<path d="M32 54 Q39 46 46 54" stroke="#1B1F4B" stroke-width="3.2" fill="none" stroke-linecap="round"></path><path d="M54 54 Q61 46 68 54" stroke="#1B1F4B" stroke-width="3.2" fill="none" stroke-linecap="round"></path>' + CLOSED_LASHES(32, 54, -1) + CLOSED_LASHES(68, 54, 1) +
       '<path d="M37 59 Q50 82 63 59 Z" fill="#1B1F4B"></path><ellipse cx="50" cy="71" rx="7" ry="4" fill="#FF8FB0"></ellipse><path d="M45 59 L47.5 64 L50 59 Z" fill="#FFFFFF"></path>' +
       '<path d="M22 44 L17 40 M22 50 L15 50 M78 44 L83 40 M78 50 L85 50" stroke="#FFD86B" stroke-width="2.4" stroke-linecap="round"></path>' +
     '</g>' +
-    '<g class="face face-wow"><circle cx="39" cy="52" r="7.5" fill="#1B1F4B"></circle><circle cx="61" cy="52" r="7.5" fill="#1B1F4B"></circle><circle cx="41.5" cy="49.5" r="2.6" fill="#FFFFFF"></circle><circle cx="63.5" cy="49.5" r="2.6" fill="#FFFFFF"></circle><ellipse cx="50" cy="66" rx="5" ry="6" fill="#1B1F4B"></ellipse></g>' +
+    '<g class="face face-wow"><circle cx="39" cy="52" r="7.5" fill="#1B1F4B"></circle><circle cx="61" cy="52" r="7.5" fill="#1B1F4B"></circle><circle cx="41.5" cy="49.5" r="2.6" fill="#FFFFFF"></circle><circle cx="63.5" cy="49.5" r="2.6" fill="#FFFFFF"></circle>' + LASHES(39, 52, 7.5, -1) + LASHES(61, 52, 7.5, 1) + '<ellipse cx="50" cy="66" rx="5" ry="6" fill="#1B1F4B"></ellipse></g>' +
     '<g class="face face-love"><path transform="translate(39 52) scale(1.5)" d="' + HEART + '" fill="#FF3D73"></path><path transform="translate(61 52) scale(1.5)" d="' + HEART + '" fill="#FF3D73"></path><path d="M42 61 Q50 70 58 61 Z" fill="#1B1F4B"></path><path d="M46 61 L48 65 L50 61 Z" fill="#FFFFFF"></path></g>' +
-    '<g class="face face-wink"><circle cx="39" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="41" cy="51" r="2" fill="#FFFFFF"></circle><path d="M55 54 L66 51 M55 54 L66 57" stroke="#1B1F4B" stroke-width="3" stroke-linecap="round"></path><path d="M42 62 Q50 69 58 62" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path><ellipse cx="54" cy="66" rx="3.5" ry="3" fill="#FF8FB0"></ellipse></g>' +
+    '<g class="face face-wink"><circle cx="39" cy="53" r="6" fill="#1B1F4B"></circle><circle cx="41" cy="51" r="2" fill="#FFFFFF"></circle>' + LASHES(39, 53, 6, -1) + CLOSED_LASHES(66, 54, 1) + '<path d="M55 54 L66 51 M55 54 L66 57" stroke="#1B1F4B" stroke-width="3" stroke-linecap="round"></path><path d="M42 62 Q50 69 58 62" stroke="#1B1F4B" stroke-width="3" fill="none" stroke-linecap="round"></path><ellipse cx="54" cy="66" rx="3.5" ry="3" fill="#FF8FB0"></ellipse></g>' +
     HIBISCUS(76, 30, 6, '#FF5C8A', '#FFD86B') +
     '</g></svg>';
 
   var AVATAR =
-    '<svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M33 34 L28 14 L42 28 Z" fill="#FFE7A3"></path><path d="M67 34 L72 14 L58 28 Z" fill="#FFE7A3"></path><ellipse cx="50" cy="60" rx="38" ry="34" fill="#4F8FEA"></ellipse><ellipse cx="50" cy="72" rx="20" ry="15" fill="#B9D7FF"></ellipse><circle cx="39" cy="54" r="5.5" fill="#1B1F4B"></circle><circle cx="61" cy="54" r="5.5" fill="#1B1F4B"></circle><path d="M42 63 Q50 72 58 63 Z" fill="#1B1F4B"></path><path d="M46 63 L48 67 L50 63 Z" fill="#FFFFFF"></path></svg>';
+    '<svg width="40" height="40" viewBox="0 0 100 100" aria-hidden="true" focusable="false"><path d="M33 34 L28 14 L42 28 Z" fill="#FFE7A3"></path><path d="M67 34 L72 14 L58 28 Z" fill="#FFE7A3"></path><ellipse cx="50" cy="60" rx="38" ry="34" fill="#4F8FEA"></ellipse><ellipse cx="50" cy="72" rx="20" ry="15" fill="#B9D7FF"></ellipse><circle cx="39" cy="54" r="5.5" fill="#1B1F4B"></circle><circle cx="61" cy="54" r="5.5" fill="#1B1F4B"></circle>' + LASHES(39, 54, 5.5, -1) + LASHES(61, 54, 5.5, 1) + '<path d="M42 63 Q50 72 58 63 Z" fill="#1B1F4B"></path><path d="M46 63 L48 67 L50 63 Z" fill="#FFFFFF"></path></svg>';
 
   var ICON_X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1B1F4B" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>';
   var ICON_SEND = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>';
